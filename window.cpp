@@ -1,6 +1,7 @@
 #include "window.hpp"
 #include <GLFW/glfw3.h>
 #include <string>
+#include <stdexcept>
 
 namespace engine{
 
@@ -21,4 +22,9 @@ namespace engine{
 		window = glfwCreateWindow(this->WIDTH, this->HEIGHT, this->TITLE.c_str(), nullptr, nullptr);
 	}
 
+  void EngineWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR *surface){
+    if(glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS){
+      throw std::runtime_error("Unable to create surface");
+    }
+  }
 } 
